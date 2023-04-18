@@ -4,13 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Questions {
+public class EnsembleQuestions {
 	private ArrayList<Question> liste;
 	
-	Questions(){
+	EnsembleQuestions(){
 		this.liste = new ArrayList<Question>();
 	}
-	Questions( ArrayList<Question> liste){
+	EnsembleQuestions( ArrayList<Question> liste){
 		this.liste = liste;
 	}
 	
