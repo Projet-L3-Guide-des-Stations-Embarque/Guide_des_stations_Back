@@ -14,25 +14,38 @@ public class Questions {
 		this.liste = liste;
 	}
 	
+	public void addQuestion(Question quest){
+		this.liste.add(quest);
+	}
+	
+	
 	public void ecrit(File filename) throws IOException{
-		String str = "Hello";
+		String str = "[\n";
+		for (int i=0; i < this.liste.size(); i++) {
+			str = str + liste.get(i).toString();
+		}
+		str = str + "]";
 	    BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 	    writer.write(str);
 	    writer.close();
 	}
 	
 	public void confirmation(){
-		try {
-			File myObj = new File("question.json");
-		    if (myObj.createNewFile()) {
-		    	System.out.println("File created: " + myObj.getName());
-		    	ecrit(myObj);
-		    } else {
-		        System.out.println("File already exists.");
-		    }
-		} catch (IOException e) {
-			System.out.println("An error occurred.");
-		    e.printStackTrace();
+		if(this.liste.size() > 0) {
+			try {
+				File myObj = new File("station.json");
+				if (myObj.createNewFile()) {
+					System.out.println("Fichier crée: " + myObj.getName());
+					ecrit(myObj);
+				} else {
+					System.out.println("Fichier déja existant");
+				}
+			} catch (IOException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("Liste de question vide");
 		}
 	}
 	
