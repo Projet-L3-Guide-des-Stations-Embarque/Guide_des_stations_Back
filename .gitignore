@@ -2,3 +2,9 @@
 /Questions.class
 /mainQuestion.class
 /EnsembleQuestions.class
+/ImagePageElement.class
+/PageElement.class
+/PageObject.class
+/PageSection.class
+/SubSectionPageElement.class
+/TextePageElement.class
