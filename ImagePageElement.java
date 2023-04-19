@@ -1,5 +1,3 @@
-package bgfhnvbfgv;
-
 public class ImagePageElement implements PageElement {
 	// INSTANCE ATTRIBUTES
 	private String base64;

@@ -1,4 +1,4 @@
-package bgfhnvbfgv;
+
 
 public class TextePageElement implements PageElement {
 	// INSTANCE ATTRIBUTES
