@@ -20,7 +20,7 @@ public class mainQuestion {
 	public static void main(String[] args) {
 		List<HashMap<String, String>>strfront;
 		HashMap<String, String> test1 = new HashMap<String, String>();
-		test1.put("question", "Ceci est une question");
+		test1.put("question", "Inserez une question");
 		HashMap<String, String> test2 = new HashMap<String, String>();
 		test2.put("question", "Ceci est une autre question");
 		test2.put("fin", "false");

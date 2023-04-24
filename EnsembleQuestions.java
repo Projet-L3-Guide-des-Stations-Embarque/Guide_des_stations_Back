@@ -38,12 +38,13 @@ public class EnsembleQuestions {
 	public void confirmation(){
 		if(this.liste.size() > 0) {
 			try {
-				File myObj = new File("station.json");
+				File myObj = new File("stationq.json");
 				if (myObj.createNewFile()) {
 					System.out.println("Fichier crée: " + myObj.getName());
 					ecrit(myObj);
 				} else {
-					System.out.println("Fichier déja existant");
+					ecrit(myObj);
+					System.out.println("Fichier déja existant, réécriture");
 				}
 			} catch (IOException e) {
 				System.out.println("An error occurred.");
