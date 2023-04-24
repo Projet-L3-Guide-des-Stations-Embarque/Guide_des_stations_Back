@@ -1,8 +1,10 @@
+package bgfhnvbfgv;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PageObject {
+public class PageObject implements Serializable {
 	// INSTANCE ATTRIBUTES
 	private String titre;
 	private Color couleur;

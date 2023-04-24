@@ -1,7 +1,9 @@
+package bgfhnvbfgv;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SubSectionPageElement implements PageElement {
+public class SubSectionPageElement implements PageElement, Serializable  {
 	// INSTANCE ATTRIBUTES
 	private String titre;
 	private ArrayList<PageElement> elements;

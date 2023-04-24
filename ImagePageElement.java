@@ -1,4 +1,8 @@
-public class ImagePageElement implements PageElement {
+package bgfhnvbfgv;
+
+import java.io.Serializable;
+
+public class ImagePageElement implements PageElement, Serializable {
 	// INSTANCE ATTRIBUTES
 	private String base64;
 		
