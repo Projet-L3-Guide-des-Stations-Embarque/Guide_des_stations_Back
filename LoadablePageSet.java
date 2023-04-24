@@ -48,13 +48,13 @@ public class LoadablePageSet implements Serializable {
 		}
 	}
 	
+	public ArrayList<PageObject> getPages() {
+		return pages;
+	}
+	
 	// PRIVATE INSTANCE METHODS
 	
 	private void setPages(ArrayList<PageObject> nouv) {
 		pages = nouv;
-	}
-	
-	private ArrayList<PageObject> getPages() {
-		return pages;
 	}
 }
