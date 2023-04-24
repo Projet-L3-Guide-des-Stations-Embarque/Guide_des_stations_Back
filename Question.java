@@ -5,14 +5,14 @@ public class Question{
     private String id;
     private String question;
     private Boolean fin;
-    private ArrayList<Question> nexts;
+    private ArrayList<String> nexts;
 
     //INITIALISATION VIDE (PAS SUR QU'ELLE SOIT UTILISEE)
     Question(){
         this.id = "";
         this.question = "";
         this.fin = true;
-        this.nexts = new ArrayList<Question>();
+        this.nexts = new ArrayList<String>();
     }
     /////////////////////////////////////////////////////
     
@@ -20,11 +20,11 @@ public class Question{
         this.id = id;
         this.question = question;
         this.fin = true;
-        this.nexts = new ArrayList<Question>();
+        this.nexts = new ArrayList<String>();
     }
     
     
-    Question(String id,String question,Boolean fin,ArrayList<Question> nexts){
+    Question(String id,String question,Boolean fin,ArrayList<String> nexts){
         this.id = id;
         this.question = question;
         this.fin = fin;
@@ -38,8 +38,8 @@ public class Question{
         return true;
     }
     
-    public void addNext(Question quest){
-    		this.nexts.add(quest);
+    public void addNext(String id){
+    		this.nexts.add(id);
     		this.fin = false;
     }
     
@@ -47,13 +47,13 @@ public class Question{
     
     public String nextsToString() {
     	String str = "";
-    	if (nexts.size() == 0) {
+    	if (nexts.get(0) == null) {
     		str = str + "\"idoui\" : \"\",\n";
     		str = str + "\"idnon\" : \"\"\n";
     	} else {
-    		str = str + "\"idoui\" : \""+ this.nexts.get(0).id +"\",\n";
-    		if (nexts.size() > 1) {
-    			str = str + "\"idnon\" : \""+ this.nexts.get(1).id +"\"\n";
+    		str = str + "\"idoui\" : \""+ this.nexts.get(0) +"\",\n";
+    		if (nexts.get(1) != null) {
+    			str = str + "\"idnon\" : \""+ this.nexts.get(1) +"\"\n";
         	} else {
         		str = str + "\"idnon\" : \"\"\n";
         	}
