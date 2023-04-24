@@ -36,7 +36,7 @@ public class LoadablePageSet implements Serializable {
 		}
 	}
 	
-	public boolean charger(String path) {
+	public boolean load(String path) {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
 			LoadablePageSet inter = (LoadablePageSet)ois.readObject();

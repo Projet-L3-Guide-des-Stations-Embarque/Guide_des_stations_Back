@@ -1,8 +1,8 @@
 package bgfhnvbfgv;
 
 import java.awt.Color;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 public class PageObject implements Serializable {
 	// INSTANCE ATTRIBUTES
