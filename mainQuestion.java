@@ -8,10 +8,9 @@ public class mainQuestion {
 		EnsembleQuestions res = new EnsembleQuestions();
 		for (int i=0; i < strfront.size(); i++) {
 			Question ajout = new Question(Integer.toString(i), strfront.get(i).get("question"));
-			if (strfront.get(i).get("oui")!= "") {
-				 ajout.addNext(strfront.get(i).get("oui"));
-				 ajout.addNext(strfront.get(i).get("non"));
-			}
+			ajout.addNext(strfront.get(i).get("oui"));
+			ajout.addNext(strfront.get(i).get("non"));
+			ajout.setfin(strfront.get(i).get("fin"));
 			res.addQuestion(ajout);
 		}
 		return res;
@@ -24,8 +23,9 @@ public class mainQuestion {
 		test1.put("question", "Ceci est une question");
 		HashMap<String, String> test2 = new HashMap<String, String>();
 		test2.put("question", "Ceci est une autre question");
-		test2.put("oui", "1");
-		test2.put("non", "2");
+		test2.put("fin", "false");
+		test2.put("oui", "2");
+		test2.put("non", "3");
 		strfront = new ArrayList<HashMap<String, String>>();
 		strfront.add(test1);
 		strfront.add(test2);

@@ -40,9 +40,16 @@ public class Question{
     
     public void addNext(String id){
     		this.nexts.add(id);
-    		this.fin = false;
     }
     
+    public void setfin(String str) {
+    	if (str == "false") {
+    		this.fin = false;
+    	}
+    	else {
+    		this.fin = true;
+    	}
+    }
     
     
     public String nextsToString() {
