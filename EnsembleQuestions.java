@@ -18,16 +18,21 @@ public class EnsembleQuestions {
 		this.liste.add(quest);
 	}
 	
-	
 	public void ecrit(File filename) throws IOException{
-		String str = "[\n";
-		for (int i=0; i < this.liste.size(); i++) {
-			str = str + liste.get(i).toString();
+		if(liste.size()>0) {
+			String str = "[\n";
+			int i = 0;
+			while(i < this.liste.size() -1) {
+				str = str + liste.get(i).toString();
+				str = str + ",";
+				i++;
+			}	
+			str = str + liste.get(i).toString();	
+			str = str + "]";
+		    BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+		    writer.write(str);
+		    writer.close();
 		}
-		str = str + "]";
-	    BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-	    writer.write(str);
-	    writer.close();
 	}
 	
 	public void confirmation(){
