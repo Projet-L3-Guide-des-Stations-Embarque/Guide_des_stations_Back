@@ -1,11 +1,11 @@
 package bgfhnvbfgv;
 
+import java.util.ArrayList;
+import java.io.Serializable;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
 
 public class LoadablePageSet implements Serializable {
 	// INSTANCE ATTRIBUTES
@@ -25,17 +25,18 @@ public class LoadablePageSet implements Serializable {
 		pages.remove(target);
 	}
 	
-	public void save(String path) {
+	public boolean save(String path) {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
 			oos.writeObject(this);
 			oos.close();
+			return true;
 		}catch (Exception e) {
-			System.err.println("ERREUR | Le fichier n'a pas pu être sauvegardé.");
+			return false;
 		}
 	}
 	
-	public void charger(String path) {
+	public boolean charger(String path) {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
 			LoadablePageSet inter = (LoadablePageSet)ois.readObject();
@@ -43,8 +44,9 @@ public class LoadablePageSet implements Serializable {
 			setPages(inter.getPages());
 			
 			ois.close();
+			return true;
 		}catch (Exception e) {
-			System.err.println("ERREUR | Le fichier n'a pas pu être chargé.");
+			return false;
 		}
 	}
 	
