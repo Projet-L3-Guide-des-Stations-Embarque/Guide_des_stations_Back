@@ -1,6 +1,8 @@
+package bgfhnvbfgv;
 
+import java.io.Serializable;
 
-public class TextePageElement implements PageElement {
+public class TextePageElement implements PageElement, Serializable {
 	// INSTANCE ATTRIBUTES
 	private String contenu;
 	
