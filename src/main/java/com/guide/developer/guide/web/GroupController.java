@@ -6,10 +6,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -23,6 +30,20 @@ class GroupController {
     public GroupController(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
     }
+
+    @PostMapping("/upload")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+        try {
+            String filename = StringUtils.cleanPath(file.getOriginalFilename());
+            Path directory = Paths.get("./uploadedFiles");
+            Path filepath = directory.resolve(filename);
+            Files.copy(file.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING);
+            return "File uploaded successfully!";
+        } catch (IOException ex) {
+            return "Failed to upload file";
+        }
+    }
+
 
     @GetMapping("/groups")
     Collection<Group> groups() {
