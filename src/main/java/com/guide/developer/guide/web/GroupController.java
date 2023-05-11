@@ -42,9 +42,9 @@ class GroupController {
             Path directory = Paths.get("./uploadedFiles");
             Path filepath = directory.resolve(filename);
             Files.copy(file.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING);
-            return "File uploaded successfully!";
+            return "Fichier mis en ligne avec succès!";
         } catch (IOException ex) {
-            return "Failed to upload file";
+            return "Erreur lors de la mise en ligne";
         }
     }
 
