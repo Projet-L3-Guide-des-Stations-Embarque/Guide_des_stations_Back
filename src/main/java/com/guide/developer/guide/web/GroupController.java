@@ -4,7 +4,11 @@ import com.guide.developer.guide.model.Group;
 import com.guide.developer.guide.model.GroupRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +46,32 @@ class GroupController {
         } catch (IOException ex) {
             return "Failed to upload file";
         }
+    }
+
+    @GetMapping("/files/{fileName:.+}")
+    @ResponseBody
+    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable String fileName) {
+        String filePath = "./uploadedFiles/" + fileName;
+        FileSystemResource file = new FileSystemResource(filePath);
+
+        if (!file.exists()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+
+        InputStreamResource isr;
+        try {
+            isr = new InputStreamResource(file.getInputStream());
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.parseMediaType("application/json"))
+                .body(isr);
     }
 
 
