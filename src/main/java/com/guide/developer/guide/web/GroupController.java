@@ -1,7 +1,9 @@
 package com.guide.developer.guide.web;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.guide.developer.guide.model.Group;
 import com.guide.developer.guide.model.GroupRepository;
+import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
@@ -14,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -21,8 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -73,6 +75,39 @@ class GroupController {
                 .contentType(MediaType.parseMediaType("application/json"))
                 .body(isr);
     }
+
+    @GetMapping("/guidesList")
+    @ResponseBody
+    public List<Map<String, String>> getFolderContents() {
+        File folder = new File("./uploadedFiles");
+
+        List<Map<String, String>> foldersList = new ArrayList<>();
+        for (File file : folder.listFiles()) {
+            if (file.isDirectory()) {
+                Map<String, String> folderInfo = new HashMap<>();
+                File guideStatusFile = new File(file.getAbsolutePath() + "/statutGuide.json");
+                if (guideStatusFile.exists()) {
+                    try {
+                        String guideStatusContent = new String(Files.readAllBytes(guideStatusFile.toPath()));
+                        JSONParser parser = new JSONParser(guideStatusContent);
+                        Map<String, Object> guideStatus = parser.parseObject();
+                        folderInfo.put("nom", guideStatus.get("nom").toString());
+                        folderInfo.put("url", "/" + file.getName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    folderInfo.put("nom", file.getName());
+                    folderInfo.put("url", "/" + file.getName());
+                    foldersList.add(folderInfo);
+                }
+                foldersList.add(folderInfo);
+            }
+        }
+
+        return foldersList;
+    }
+
 
 
     @GetMapping("/groups")
