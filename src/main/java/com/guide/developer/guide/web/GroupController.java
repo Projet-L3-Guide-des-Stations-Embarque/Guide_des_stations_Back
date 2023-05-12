@@ -74,10 +74,10 @@ class GroupController {
         }
     }
 
-    @GetMapping("/files/{fileName:.+}")
+    @GetMapping("/files/{dirName}/{fileName:.+}")
     @ResponseBody
-    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable String fileName) {
-        String filePath = "./uploadedFiles/" + fileName;
+    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable String fileName, @PathVariable String dirName) {
+        String filePath = "./uploadedFiles/" + dirName + "/" + fileName;
         FileSystemResource file = new FileSystemResource(filePath);
 
         if (!file.exists()) {
