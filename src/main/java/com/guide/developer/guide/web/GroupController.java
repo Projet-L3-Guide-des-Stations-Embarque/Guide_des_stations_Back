@@ -1,22 +1,14 @@
 package com.guide.developer.guide.web;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.BooleanNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.TextNode;
 import com.guide.developer.guide.model.Group;
 import com.guide.developer.guide.model.GroupRepository;
 import net.minidev.json.JSONArray;
+
 import net.minidev.json.JSONObject;
 import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.repository.query.Param;
@@ -29,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -62,8 +54,8 @@ class GroupController {
                 JSONObject guide = new JSONObject();
                 guide.put("nom", name);
                 guide.put("version", "1");
-                guide.put("usesQuestions", true);
-                guide.put("usesPages", true);
+                guide.put("usesQuestions", false);
+                guide.put("usesPages", false);
                 guide.put("usesGE", false);
                 guide.put("usesLexique", false);
                 guide.put("usesSecteursAltitudes", false);
@@ -74,29 +66,28 @@ class GroupController {
                 Files.write(filepath, guides.toString().getBytes());
             }
             String statutPath = "./uploadedFiles/" + dir + "/statutGuide.json";
+
+            String guideStatusContent = new String(Files.readAllBytes(Paths.get(statutPath)));
+            JSONParser statutParser = new JSONParser(guideStatusContent);
+            List<Map<String, String>> guides = (List<Map<String, String>>) statutParser.parse();
+            Map<String, String> guide = guides.get(0);
+            JSONObject jsonObject = new JSONObject(guide);
+            jsonObject.put("version", Integer.parseInt(jsonObject.get("version").toString()) + 1);
+            jsonObject.put("nom", jsonObject.get("nom").toString());
+            switch (filename) {
+                case "questions.json" -> jsonObject.put("usesQuestions", true);
+                case "stations.json" -> jsonObject.put("usesPages", true);
+                case "ge.json" -> jsonObject.put("usesGE", true);
+                case "lexique.json" -> jsonObject.put("usesLexique", true);
+                case "secteursAltitudes.json" -> jsonObject.put("usesSecteursAltitudes", true);
+                case "map.json" -> jsonObject.put("usesMap", true);
+            }
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.add(jsonObject);
             File statutFile = new File(statutPath);
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode statutJson = objectMapper.readTree(new FileInputStream(statutFile));
-            if (filename.equals("question.json")) {
-                ((ObjectNode) statutJson).set("usesQuestions", JsonNodeFactory.instance.booleanNode(true));
-            }
-            if (filename.equals("pages.json")) {
-                ((ObjectNode) statutJson).set("usesPages", JsonNodeFactory.instance.booleanNode(true));
-            }
-            if (filename.equals("ge.json")) {
-                ((ObjectNode) statutJson).set("usesGE", JsonNodeFactory.instance.booleanNode(true));
-            }
-            if (filename.equals("lexique.json")) {
-                ((ObjectNode) statutJson).set("usesLexique", JsonNodeFactory.instance.booleanNode(true));
-            }
-            if (filename.equals("secteursAltitudes.json")) {
-                ((ObjectNode) statutJson).set("usesSecteursAltitudes", JsonNodeFactory.instance.booleanNode(true));
-            }
-            if (filename.equals("map.json")) {
-                ((ObjectNode) statutJson).set("usesMap", JsonNodeFactory.instance.booleanNode(true));
-            }
-            statutJson = objectMapper.readTree(objectMapper.writeValueAsString(statutJson));
-            objectMapper.writeValue(new File("./uploadedFiles/"+dir+"/statutGuide.json"), statutJson);
+            FileWriter writer = new FileWriter(statutFile);
+            writer.write(jsonArray.toString());
+            writer.close();
 
             Path filepath = directory.resolve(filename);
             Files.copy(file.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING);
@@ -104,6 +95,8 @@ class GroupController {
         } catch (IOException ex) {
             log.info("Erreur lors de la mise en ligne du fichier: " + ex);
             return "Erreur lors de la mise en ligne";
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 
