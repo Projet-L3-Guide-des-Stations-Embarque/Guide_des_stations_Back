@@ -1,0 +1,30 @@
+[
+    {
+        "mot": "hautes herbes",
+        "definition": "Formation herbacée à fort recouvrement (supérieur 75%), composée de plantes à feuilles larges comme les adénostyles, lesfougères, la Lunaire vivace, etc., et de nombreuses plantes hygrosciaphiles (GE.10)."
+    },
+    {
+        "mot": "éboulis actifs",
+        "definition": "Sur versant pentu, éboulis alimenté régulièrement en cailloux et blocs, caractérisé par l'abscence de sol brun (couleur et agrégats arrondis) et une porosité forte."
+    },
+    {
+        "mot": "colluvions",
+        "definition": "Matérieux mélangés (minéraux et organiques), remaniés le long d'un versant pentu ; l'observation d'horizons nettement différenciés est difficile voire impossible sur plus de 50 cm de profondeur."
+    },
+    {
+        "mot": "sol peu évolué",
+        "definition": "Sol limité aux couches o rganiques ou organo-minérales (humus), développées sur de la roche peu altérée. Absence d'un sol brun structuré. À l'échelle de la station, la roche est fréquemment affleurante voire apparente."
+    },
+    {
+        "mot": "terre fine",
+        "definition": "Particules minérales dont la taille est inférieure à 2 mm (graviers, cailloux,...)."
+    },
+    {
+        "mot": "éléments grossiers",
+        "definition": "Particules minérales dont la taille est supérieure à 2 mm (graviers, cailloux,...)."
+    },
+    {
+        "mot": "sol superficiel",
+        "definition": "Sol peu épais dont la base de l'horizon brun  ou ocreux n'excède pas 30 cm de profondeur ou plus de 60% cailloux."
+    }
+]
