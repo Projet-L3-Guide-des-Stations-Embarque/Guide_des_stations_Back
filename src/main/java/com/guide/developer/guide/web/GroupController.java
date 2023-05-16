@@ -3,7 +3,6 @@ package com.guide.developer.guide.web;
 import com.guide.developer.guide.model.Group;
 import com.guide.developer.guide.model.GroupRepository;
 import net.minidev.json.JSONArray;
-
 import net.minidev.json.JSONObject;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
@@ -60,6 +59,7 @@ class GroupController {
                 guide.put("usesLexique", false);
                 guide.put("usesSecteursAltitudes", false);
                 guide.put("usesMap", false);
+                guide.put("usesColors", false);
                 guides.add(guide);
 
                 Path filepath = directory.resolve("statutGuide.json");
@@ -81,6 +81,7 @@ class GroupController {
                 case "lexique.json" -> jsonObject.put("usesLexique", true);
                 case "secteursAltitudes.json" -> jsonObject.put("usesSecteursAltitudes", true);
                 case "map.json" -> jsonObject.put("usesMap", true);
+                case "couleursFamillesStations.json" -> jsonObject.put("usesColors", true);
             }
             JSONArray jsonArray = new JSONArray();
             jsonArray.add(jsonObject);
