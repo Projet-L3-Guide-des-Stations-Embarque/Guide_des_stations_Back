@@ -100,6 +100,37 @@ class GroupController {
         }
     }
 
+    @PostMapping("/resetAllData")
+    public String handleFileUpload(@RequestParam("password") String password) throws IOException {
+        if (password.equals("jeVeuxReinitialiser")) {
+            // Chemin des dossiers uploadedFiles et uploadedFilesBackup
+            Path uploadedFilesPath = Paths.get("./uploadedFiles");
+            Path uploadedFilesBackupPath = Paths.get("./uploadedFilesBackup");
+
+            // Supprimer le dossier uploadedFiles s'il existe
+            if (Files.exists(uploadedFilesPath)) {
+                Files.walk(uploadedFilesPath)
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+            }
+
+            // Copier tous les fichiers du dossier uploadedFilesBackup vers uploadedFiles
+            Files.walk(uploadedFilesBackupPath)
+                    .forEach(source -> {
+                        Path destination = uploadedFilesPath.resolve(uploadedFilesBackupPath.relativize(source));
+                        try {
+                            Files.copy(source, destination);
+                        } catch (IOException ex) {
+                            System.out.println("Erreur lors de la copie du fichier " + source + " vers " + destination + ": " + ex.getMessage());
+                        }
+                    });
+            return "Données réinitialisées avec succès!";
+        } else {
+            return "Mot de passe incorrect";
+        }
+    }
+
     @GetMapping("/files/{dirName}/{fileName:.+}")
     @ResponseBody
     public ResponseEntity<InputStreamResource> downloadFile(@PathVariable String fileName, @PathVariable String dirName) {

@@ -1,0 +1,12 @@
+[
+	{
+		"nom":"Guide des Alpes du Nord et les montagnes de l'Ain",
+		"version":"1",
+		"usesQuestions":true,
+		"usesPages":true,
+		"usesGE":true,
+		"usesLexique":true,
+		"usesSecteursAltitudes":true,
+		"usesMap":true
+	}
+]
