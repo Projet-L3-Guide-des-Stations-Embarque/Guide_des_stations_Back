@@ -78,7 +78,7 @@
     },
     {
         "id" : "1a",
-        "question" : "• Etage  subalpin ou montagnard. \n• Combe à neige ou bas de pente concave (en creux). \n• Sol tassé, à taches rouilles et zones décolorées. \n• Formation basse à saule(s)",
+        "question" : "• Etage subalpin ou montagnard. \n• Combe à neige ou bas de pente concave (en creux). \n• Sol tassé, à taches rouilles et zones décolorées. \n• Formation basse à saule(s)",
         "fin" : false,
         "idoui" : "1-5",
         "idnon" : "1b"
