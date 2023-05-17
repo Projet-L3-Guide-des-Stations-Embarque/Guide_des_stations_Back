@@ -1,0 +1,30 @@
+[
+    {
+        "couleur": "#FF00C0F3",
+        "idFamille": "1"
+    },
+    {
+        "couleur": "#FF8E52A1",
+        "idFamille": "2"
+    },
+    {
+        "couleur": "#FFFAA61A",
+        "idFamille": "3"
+    },
+    {
+        "couleur": "#FF0066B3",
+        "idFamille": "4"
+    },
+    {
+        "couleur": "#FF2E7144",
+        "idFamille": "5"
+    },
+    {
+        "couleur": "#FF71BF44",
+        "idFamille": "6"
+    },
+    {
+        "couleur": "#FFB8422F",
+        "idFamille": "7"
+    }
+]
