@@ -7,6 +7,7 @@
 		"usesGE":true,
 		"usesLexique":true,
 		"usesSecteursAltitudes":true,
-		"usesMap":true
+		"usesMap":true,
+		"usesColors":true
 	}
 ]
