@@ -3,7 +3,6 @@ package com.guide.developer.guide.web;
 import com.guide.developer.guide.model.Group;
 import com.guide.developer.guide.model.GroupRepository;
 import net.minidev.json.JSONArray;
-
 import net.minidev.json.JSONObject;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
@@ -60,6 +59,7 @@ class GroupController {
                 guide.put("usesLexique", false);
                 guide.put("usesSecteursAltitudes", false);
                 guide.put("usesMap", false);
+                guide.put("usesColors", false);
                 guides.add(guide);
 
                 Path filepath = directory.resolve("statutGuide.json");
@@ -81,6 +81,7 @@ class GroupController {
                 case "lexique.json" -> jsonObject.put("usesLexique", true);
                 case "secteursAltitudes.json" -> jsonObject.put("usesSecteursAltitudes", true);
                 case "map.json" -> jsonObject.put("usesMap", true);
+                case "couleursFamillesStations.json" -> jsonObject.put("usesColors", true);
             }
             JSONArray jsonArray = new JSONArray();
             jsonArray.add(jsonObject);
@@ -97,6 +98,37 @@ class GroupController {
             return "Erreur lors de la mise en ligne";
         } catch (ParseException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/resetAllData")
+    public String handleFileUpload(@RequestParam("password") String password) throws IOException {
+        if (password.equals("jeVeuxReinitialiser")) {
+            // Chemin des dossiers uploadedFiles et uploadedFilesBackup
+            Path uploadedFilesPath = Paths.get("./uploadedFiles");
+            Path uploadedFilesBackupPath = Paths.get("./uploadedFilesBackup");
+
+            // Supprimer le dossier uploadedFiles s'il existe
+            if (Files.exists(uploadedFilesPath)) {
+                Files.walk(uploadedFilesPath)
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+            }
+
+            // Copier tous les fichiers du dossier uploadedFilesBackup vers uploadedFiles
+            Files.walk(uploadedFilesBackupPath)
+                    .forEach(source -> {
+                        Path destination = uploadedFilesPath.resolve(uploadedFilesBackupPath.relativize(source));
+                        try {
+                            Files.copy(source, destination);
+                        } catch (IOException ex) {
+                            System.out.println("Erreur lors de la copie du fichier " + source + " vers " + destination + ": " + ex.getMessage());
+                        }
+                    });
+            return "Données réinitialisées avec succès!";
+        } else {
+            return "Mot de passe incorrect";
         }
     }
 

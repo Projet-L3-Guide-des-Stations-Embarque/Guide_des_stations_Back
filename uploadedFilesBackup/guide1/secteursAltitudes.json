@@ -1,0 +1,57 @@
+[
+	{
+       	"id":1,
+       	"name":"externe septentrional", 
+       	"topQuestionId":"4a",
+       	"middleQuestionId":"5a",
+       	"bottomQuestionId":"7a",
+       	"ubac_amont":1400,
+       	"ubac_aval":700,
+       	"adret_amont":1550,
+       	"adret_aval":900
+	},
+	{
+       	"id":2,
+       	"name":"externe méridional", 
+       	"topQuestionId":"4a",
+       	"middleQuestionId":"5a",
+       	"bottomQuestionId":"7a",
+       	"ubac_amont":1500,
+       	"ubac_aval":750,
+       	"adret_amont":1550,
+       	"adret_aval":950
+	},
+	{
+       	"id":3,
+       	"name":"intermédiaire septentrional", 
+       	"topQuestionId":"4a",
+       	"middleQuestionId":"9a",
+       	"bottomQuestionId":"7a",
+       	"ubac_amont":1400,
+       	"ubac_aval":800,
+       	"adret_amont":1550,
+       	"adret_aval":1000
+	},
+	{
+       	"id":4,
+       	"name":"intermédiaire méridional", 
+       	"topQuestionId":"4a",
+       	"middleQuestionId":"9a",
+       	"bottomQuestionId":"7a",
+       	"ubac_amont":1500,
+       	"ubac_aval":800,
+       	"adret_amont":1550,
+       	"adret_aval":1000
+	},
+	{
+       	"id":5,
+       	"name":"interne", 
+       	"topQuestionId":"4a",
+       	"middleQuestionId":"6a",
+       	"bottomQuestionId":"7a",
+       	"ubac_amont":1500,
+       	"ubac_aval":800,
+       	"adret_amont":1600,
+       	"adret_aval":1000
+	}
+]
